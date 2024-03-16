@@ -1,36 +1,15 @@
 import { tmpl, Component } from './Component.js';
 import { ranks, suites, Card } from '../model/card.js';
 
-const cardComponentInput = (comp, handIndex) => {
-  let options = '';
-
-  Object.keys(comp).forEach(curr => {
-    const compString = comp[curr].description;
-    options += `<option value="${compString}">${compString}</option>`;
-  });
-
-  return `<select class="form-select">${options}</select>`;
-};
-
-const cardInput = (handIndex) => `
-<form class="m-0 pt-4">
-  <div class="row g-0">
-    <div class="col">
-      ${ cardComponentInput(ranks, handIndex) }
-    </div>
-    <div class="col">
-      ${ cardComponentInput(suites, handIndex) }
-    </div>
-  </div>
-</form>
-`;
+import CardSelector from './CardSelector.js';
 
 export default class HandInput extends Component {
-  constructor() {
-    const state = {
-      handSize: 8,
-      hand: { }
-    };
+  constructor(state) {
+    state.handSize = 8;
+    state.hand = { };
+    for (let i = 0; i < state.handSize; i++) {
+      state.hand[i] = { };
+    }
 
     super(state, tmpl`
 <div class="container-fluid">
@@ -40,7 +19,14 @@ export default class HandInput extends Component {
     </div>
     <div class="card-body">
       <div class="row row-cols-4 gy-4">
-        ${p => [...Array(p.handSize).keys()].map(idx => `${cardInput(idx)}`).join('')}
+        ${ new CardSelector( state.hand[0] ) }
+        ${ new CardSelector( state.hand[1] ) }
+        ${ new CardSelector( state.hand[2] ) }
+        ${ new CardSelector( state.hand[3] ) }
+        ${ new CardSelector( state.hand[4] ) }
+        ${ new CardSelector( state.hand[5] ) }
+        ${ new CardSelector( state.hand[6] ) }
+        ${ new CardSelector( state.hand[7] ) }
       </div>
     </div>
   </div>
