@@ -36,6 +36,9 @@ jspm_packages/
 .env.production.local
 .env.local
 
+## Mac local files
+*.DS_Store
+
 # Project Specific
 ## Assets
 assets/textures
